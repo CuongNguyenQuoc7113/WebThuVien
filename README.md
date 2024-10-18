@@ -1,11 +1,10 @@
-# **Shoe Store Website**
+# **Book Borrowing Website**
 ## Description
-This **Shoe Store Website** is a full-stack web application designed to streamline the process of browsing and purchasing shoes online. Built with **Spring Boot** for the backend and **React** for the frontend, the system allows users to explore different shoe collections, filter by categories, place orders, and manage their purchases effortlessly.
-
-- **Motivation:** The motivation for creating this project arose from the need for an efficient, user-friendly online platform for purchasing footwear.
-- **Why was this built?** This project was developed to provide a real-world solution to common challenges in online shoe shopping. By integrating modern technologies, we aimed to create a seamless experience for both customers and store management.
-- **Problem it solves:** It addresses issues like complex shopping processes, inconsistent payment methods, and poor customer communication.
-- **What did I learn?** Through this project, I learned how to effectively integrate frontend (React) with backend (Spring Boot), implement payment systems, manage user authentication, and build scalable e-commerce applications.
+This **Book  Website** is a full-stack web application designed to facilitate the process of borrowing books online. Built with **Spring Boot** for the backend and **React** for the frontend, the system allows users to explore available books, filter by genres, make reservations, and manage borrowed books easily.
+- **Motivation:** The motivation for creating this project stemmed from the need for a seamless and efficient online book borrowing platform.
+- **Why was this built?** The project was developed to provide a solution to challenges faced by libraries and users in managing book loans. By integrating modern technologies, we aimed to create a user-friendly system that simplifies both customer and library staff experiences.
+- **Problem it solves:** It addresses issues like complex book search processes, unorganized book reservation handling, and ineffective communication between users and library management.
+- **What did I learn?** Through this project, I learned how to effectively integrate frontend (React) with backend (Spring Boot), handle user authentication, and build scalable full-stack web applications.
 - 
 ----
 
@@ -87,18 +86,19 @@ Once both the backend and frontend servers are running, the application can be a
 
 
 ## Credits
-- **[Hoang Chau Phuc Thuan]** - Team Leader/Fullstack
+- **[Tran Hoai Nam]** - Team Leader/Fullstack
+- **[Hoang Chau Phuc Thuan]** - FullStack
 - **[Nguyen Quoc Cuong]** - Frontend
+- **[Nguyen Hoang Huy]** - 
 ---
 
 ## Features
 - Login/Logout using OAuth2 with Google/Facebook
 - JWT Authentication
-- Shoe search with filtering by categories
-- Shoe carousel showcasing popular collections
+- Book search with filtering by categories
+- Book carousel showcasing popular collections
 - Secure payment with VNPAY
 - Email confirmation for orders
 - Admin panel for managing inventory and orders
-- Blog system for shoe trends and news
 - Ability to cancel orders
 Responsive design for mobile and desktop views
