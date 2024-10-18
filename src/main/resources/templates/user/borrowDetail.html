@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book List</title>
+    <div th:insert="~{Shared/head :: headFragment}"></div>
+    <style>
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table-custom th, .table-custom td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table-custom th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .table-custom tr:hover {
+            background-color: #f2f2f2;
+        }
+        .table-custom td {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div th:insert="~{Shared/header :: headerFragment}"></div>
+<div th:insert="~{Shared/search :: searchFragment}"></div>
+<div class="container">
+    <h1 th:text="${title}"></h1>
+    <table class="table-custom">
+        <tr>
+            <th>Hình ảnh sách</th>
+            <th>Tên sách</th>
+            <th>Trạng thái</th>
+            <th>Ngày phải trả sách</th>
+            <th>Tiền phạt</th>
+            <th>Thanh toán</th> <!-- New column for payment button -->
+        </tr>
+        <tr th:each="detail : ${borrow.details}">
+            <td><img th:src="@{${detail.book.imgUrl}}" width="250px" height="300"></td>
+            <td th:text="${detail.book.title}"></td>
+            <td>
+                <span th:if="${detail.isFines == null}">-</span>
+                <span th:if="${detail.isFines == false}">Bị phạt</span>
+                <span th:if="${detail.isFines == true}">Đã đóng phạt</span>
+            </td>
+            <td th:text="${detail.returnDate != null ? #dates.format(detail.returnDate, 'dd/MM/yyyy') : '-'}"></td>
+            <td th:text="${detail.fineAmount != null ? detail.fineAmount : '-'}"></td>
+            <td>
+                <form th:action="@{/fine/create-payment}" method="post">
+                    <input type="hidden" name="borrowDetailId" th:value="${detail.id}">
+                    <input type="hidden" name="fineAmount" th:value="${detail.fineAmount}">
+                    <span th:if="${detail.isFines == false}">
+                        <button type="submit" class="btn btn-primary">Thanh toán VNPay</button>
+                    </span>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book List</title>
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+        <!-- End of Topbar -->
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container">
+                <h1>Danh sách SÁCH</h1>
+                <a href="/books/add" class="btn btn-primary" >Thêm sách mới</a>
+                <table class="table table-bordered table-hover" >
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sách</th>
+                        <th>Tác giả</th>
+                        <th>Giá</th>
+                        <th>Số trang</th>
+                        <th>Thuộc thể loại</th>
+                        <th>Bộ</th>
+                        <th sec:authorize="hasAnyAuthority('ADMIN')">Tác vụ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="book:${books}">
+                        <td th:text="${book.id}"></td>
+                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.author.name}"></td>
+                        <td th:text="${book.price}"></td>
+                        <td th:text="${book.page}"></td>
+                        <td th:text="${book.category.name}"></td>
+                        <td th:text="${book.bo.name}"></td>
+                        <td sec:authorize="hasAnyAuthority('ADMIN')">
+                            <div style="display:flex;">
+                                <form th:action="@{/books/edit/{id}(id=${book.id})}">
+                                    <button class="btn btn-secondary" type="submit">Sửa</button>
+                                </form>
+                                <form th:action="@{/books/delete/{id}(id=${book.id})}">
+                                    <button class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá?')" type="submit">
+                                        Xóa
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+        <!-- Footer -->
+        <div th:insert="~{admin/fragment/footer :: footer}"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <div th:insert="~{admin/fragment/script :: script}"></div>
+
+    <script th:inline="javascript">
+        function deleteBook(link) {
+            if (confirm('Are you sure?')) {
+                $.ajax({
+                    url: $(link).attr('href'),
+                    type: 'DELETE',
+                    success: result => {
+                        if (!result.success) {
+                            alert(result.message);
+                        } else {
+                            $(link).parent().parent().remove();
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

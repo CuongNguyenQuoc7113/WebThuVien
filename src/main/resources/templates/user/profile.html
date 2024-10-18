@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{Shared/head :: headFragment}"></div>
+    <style>
+        /* CSS cho modal */
+        .modal {
+            display: none; /* Ẩn modal mặc định */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #paymentStatusMessage {
+            text-align: center;
+            font-size: 20px;
+    font-weight: bold;
+    color: #28a745; /* Màu chữ thông báo */
+}
+    </style>
+</head>
+<body>
+<div th:insert="~{Shared/header :: headerFragment}"></div>
+<div th:insert="~{Shared/search :: searchFragment}"></div>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Thông Tin Khách Hàng</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Username: <span th:text="${user.username}"></span></p>
+                    <p class="card-text">Email: <span th:text="${user.email}"></span></p>
+                    <hr>
+                    <div th:if="${card != null}">
+                        <p class="card-text">Thẻ thư viện:</p>
+                        <p class="card-text">Ngày cấp: <span th:text="${#dates.format(card.issueDate, 'dd/MM/yyyy')}"></span></p>
+                        <p class="card-text">Ngày hết hạn: <span th:text="${#dates.format(card.expiryDate, 'dd/MM/yyyy')}"></span></p>
+
+                            <div class="form-group">
+                                <label for="months">Gia hạn thêm (tháng):</label>
+                                <input type="number" class="form-control" id="months" name="months" min="1" required>
+                                <button type="button" id="openPaymentModalBtn" class="btn btn-primary">Gia hạn</button>
+                            </div>
+
+
+
+                        <div id="paymentModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2>Thông tin thanh toán</h2>
+                                <p>Số tháng: <span id="modalMonths"></span></p>
+                                <p>Tổng tiền: <span id="modalTotal"></span> VND</p>
+                                <form th:action="@{/api/payment/create-payment}" method="post" id="paymentForm">
+                                    <input type="hidden" id="modalMonthsInput" name="months">
+                                    <button type="submit" class="btn btn-primary">Thanh toán</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${card == null}">
+                        <div class="form-group">
+                            <label for="months">Tạo thẻ mới với số (tháng):</label>
+                            <input type="number" class="form-control" id="months" name="months" min="1" required>
+                            <button type="button" id="openPaymentModalBtn" class="btn btn-primary">Tạo thẻ</button>
+                        </div>
+                        <div id="paymentModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2>Thông tin thanh toán</h2>
+                                <p>Số tháng: <span id="modalMonths"></span></p>
+                                <p>Tổng tiền: <span id="modalTotal"></span> VND</p>
+                                <form th:action="@{/api/payment/create-payment}" method="post" id="paymentForm">
+                                    <input type="hidden" id="modalMonthsInput" name="months">
+                                    <button type="submit" class="btn btn-primary">Thanh toán</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="paymentStatusModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="paymentStatusMessage"></p>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById('paymentModal');
+    var btn = document.getElementById('openPaymentModalBtn');
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        var months = document.getElementById('months').value;
+        var total = months * 50000;
+        document.getElementById('modalMonths').innerText = months;
+        document.getElementById('modalTotal').innerText = total;
+        document.getElementById('modalMonthsInput').value = months;
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function getQueryParams() {
+        let params = {};
+        window.location.search.substring(1).split("&").forEach(function(pair) {
+            let [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+        });
+        return params;
+    }
+
+    function showModal(message) {
+        document.getElementById("paymentStatusMessage").innerText = message;
+        document.getElementById("paymentStatusModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("paymentStatusModal").style.display = "none";
+    }
+
+    window.onload = function() {
+        let params = getQueryParams();
+        if (params.paymentStatus) {
+            if (params.paymentStatus === "success") {
+                showModal("Thanh toán thành công!");
+            } else if (params.paymentStatus === "failure") {
+                showModal("Thanh toán thất bại!");
+            }
+        }
+    };
+</script>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>

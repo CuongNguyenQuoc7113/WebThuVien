@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Cards</title>
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+        <!-- End of Topbar -->
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container">
+                <h1>Danh sách thẻ</h1>
+                <a href="/cards/add" class="btn btn-primary" >Thêm thẻ mới</a>
+                <table class="table table-bordered table-hover" >
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Tên người dùng</th>
+                        <th>Ngày phát hành thẻ</th>
+                        <th>Ngày hết hạn</th>
+                        <th>Tác vụ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="card : ${cards}">
+                        <td th:text="${card.user.name}"></td>
+                        <td th:text="${#dates.format(card.issueDate, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#dates.format(card.expiryDate, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <a th:href="@{/cards/renew/{username}(username=${card.user.username})}" class="btn btn-primary">Gia hạn</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <div th:insert="~{admin/fragment/footer :: footer}"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+
+<!-- Scripts -->
+<div th:insert="~{admin/fragment/script :: script}"></div>
+
+</body>
+</html>

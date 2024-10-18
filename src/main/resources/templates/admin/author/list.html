@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book List</title>
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+        <!-- End of Topbar -->
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container">
+                <h1>Danh sách tác giả</h1>
+                <div>
+                    <a th:href="@{/authors/add}" class="btn btn-primary mb-3">Thêm mới tác giả</a>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên tác giả</th>
+                        <th>Tác vụ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="author : ${authors}">
+                        <td th:text="${author.id}"></td>
+                        <td th:text="${author.name}"></td>
+                        <td>
+                            <a th:href="@{/authors/edit/{id}(id=${author.id})}" class="btn btn-success btn-sm">Sửa</a>
+                            <a th:href="@{/authors/delete/{id}(id=${author.id})}"
+                               class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Xóa</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+        <!-- Footer -->
+        <div th:insert="~{admin/fragment/footer :: footer}"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <div th:insert="~{admin/fragment/script :: script}"></div>
+
+    <script th:inline="javascript">
+        function deleteBook(link) {
+          if (confirm('Are you sure?')) {
+            $.ajax({
+              url: $(link).attr('href'),
+              type: 'DELETE',
+              success: result => {
+                if (!result.success) {
+                  alert(result.message);
+                } else {
+                  $(link).parent().parent().remove();
+                }
+              }
+            });
+          }
+        }
+    </script>
+</div>
+</body>
+</html>

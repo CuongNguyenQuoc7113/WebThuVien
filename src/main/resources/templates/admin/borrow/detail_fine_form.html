@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Fine Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+        <!-- End of Topbar -->
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container">
+                <h2>Ghi phiếu phạt</h2>
+                <form th:action="@{/borrow/fine/{id}(id=${borrowDetail.id})}" method="post">
+                    <div class="form-group">
+                        <label for="fineAmount">Tiền phạt:</label>
+                        <input type="text" class="form-control" id="fineAmount" name="fineAmount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Lý do:</label>
+                        <input type="text" class="form-control" id="description" name="description">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ghi phiếu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

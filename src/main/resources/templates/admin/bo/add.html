@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+        <!-- End of Topbar -->
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container">
+                <h1 class="mb-4">Thêm mới bộ</h1>
+                <form th:action="@{/bos/add}" th:object="${bo}" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên Bộ:</label>
+                        <input type="text" id="name" th:field="*{name}" class="form-control"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('name')}"
+                             th:errors="*{name}"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                </form>
+                <br>
+                <a th:href="@{/bos}" class="btn btn-secondary">Quay lại</a>
+
+            </div>
+            <div th:insert="~{admin/fragment/script :: script}"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

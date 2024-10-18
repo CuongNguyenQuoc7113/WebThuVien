@@ -1,0 +1,108 @@
+<!doctype html>
+<html amp class="no-js" lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{Shared/head :: headFragment}"></div>
+<body id="hogwarts-theme" class="collection" style="background: #f9f5ee">
+<div class="nav-overlay" onclick="initNav('close')"></div>
+
+<div class="main-body   ">
+    <div th:insert="~{Shared/header :: headerFragment}"></div>
+    <div th:insert="~{Shared/search :: searchFragment}"></div>
+    <div class="layoutPage-cart" id="layout-cart">
+        <div class="breadcrumb-shop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                        <ol class="breadcrumb breadcrumb-arrows" itemscope itemtype="http://schema.org/BreadcrumbList">
+                            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                <a href="/" target="_self" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+                                <meta itemprop="position" content="1" />
+                            </li>
+                            <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" >
+                                <span itemprop="item" content=""><span itemprop="name">Giỏ hàng</span></span>
+                                <meta itemprop="position" content="2" />
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-cart-detail">
+            <div class="container">
+                <div class="heading-page">
+                    <div class="header-page">
+                        <h1>Giỏ hàng của bạn</h1>
+                        <p class="count-cart"><span>Các sách trong giỏ</span></p>
+                    </div>
+                </div>
+                <div class="row wrapbox-content-cart" >
+                    <div class="col-12 contentCart-detail">
+                        <div class="cart-container">
+                            <div class="cart-col-left">
+                                <div class="main-content-cart">
+                                    <form action="/borrow" method="post" id="cartformpage">
+                                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                            <input type="hidden" name="userName" th:value="${#authentication.name}" />
+                                        </th:block>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <table class="table-cart">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="image">&nbsp;</th>
+                                                        <th class="item">Tên sản phẩm</th>
+                                                        <th class="item">Thời gian mượn tối da</th>
+                                                        <th class="item">Giá sach (neu hu hai)</th>
+                                                        <th class="remove">&nbsp;</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody th:each="book:${cartItems}">
+                                                    <tr class="line-item-container" data-variant-id="1125206016">
+                                                        <td class="image">
+                                                            <div class="product_image">
+                                                                <a href="">
+                                                                    <img th:src="@{${book.imgUrl}}" width="150px" height="200" />
+                                                                </a>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="item" width="420px">
+                                                            <h3 th:text="${book.title}"></h3>
+                                                        </td>
+
+                                                        <td class="item">
+                                                            <span class="price" th:if="${book.page<100}">3 Ngay</span>
+                                                            <span class="price" th:if="${book.page>=100 && book.page<200}">5 Ngay</span>
+                                                            <span class="price" th:if="${book.page>=200 && book.page<300}">7 Ngay</span>
+                                                            <span class="price" th:if="${book.page>=300 && book.page<500}">10 Ngay</span>
+                                                            <span class="price" th:if="${book.page>=500}">15 Ngay</span>
+                                                        </td>
+
+                                                        <td class="item">
+                                                            <span class="price" th:text="${book.price} + ' VND'"></span>
+                                                        </td>
+
+                                                        <td class="remove">
+                                                            <a href="" class="cart">
+                                                                <img src=""/></a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <button type="submit" style="background-color: #4CAF50; color: white; padding: 12px 20px; border: none; cursor: pointer; border-radius: 4px; font-size: 16px;">Borrow</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="~{Shared/footer :: footerFragment}"></div>
+</div>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>

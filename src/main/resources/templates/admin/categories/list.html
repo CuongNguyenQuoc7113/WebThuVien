@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Category List</title>
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+<body id="page-top">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+        <!-- End of Topbar -->
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container">
+                <h1>Danh sách thể loại</h1>
+                <div>
+                    <a th:href="@{/categories/add}" class="btn btn-primary mb-3">Thêm mới thể loại</a>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên thể loại</th>
+                        <th>Tác vụ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
+                        <td>
+                            <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn btn-success btn-sm">Sửa</a>
+                            <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Xóa</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{admin/fragment/script :: script}"></div>
+</body>
+</html>

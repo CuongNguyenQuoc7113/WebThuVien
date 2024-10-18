@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Add Book</title>
+  <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+  </div>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Topbar -->
+    <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+    <!-- End of Topbar -->
+
+    <!-- Main Content -->
+    <div id="content">
+      <div class="container">
+        <h1>Thêm sách mới</h1>
+        <form th:action="@{/books/add}" th:object="${book}" method="post" enctype="multipart/form-data">
+          <div class="col-6 md-3">
+            <label class="form-label" for="title">Tên sách</label>
+            <input class="form-control" type="text" th:field="*{title}" id="title">
+            <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="author">Tác giả</label>
+            <select class="form-control" id="author" th:field="*{author.id}">
+              <option value="">Chọn tác giả</option>
+              <option th:each="author : ${authors}" th:value="${author.id}"
+                      th:text="${author.name}"></option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('author')}"
+                  th:errors="*{author}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="bo">Bộ</label>
+            <select class="form-control" id="bo" th:field="*{bo.id}">
+              <option value="">Chọn bộ</option>
+              <option th:each="bo : ${bos}" th:value="${bo.id}"
+                      th:text="${bo.name}"></option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('bo')}"
+                  th:errors="*{bo}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="price">Giá sách</label>
+            <input class="form-control" type="text" th:field="*{price}" id="price">
+            <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="page">Số trang</label>
+            <input class="form-control" type="text" th:field="*{page}" id="page">
+            <span class="text-danger" th:if="${#fields.hasErrors('page')}" th:errors="*{page}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="description">Miêu tả sách</label>
+            <textarea class="form-control" th:field="*{description}" id="description"></textarea>
+            <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="category">Thể loại</label>
+            <select class="form-control" id="category" th:field="*{category.id}">
+              <option value="">Chọn thể loại</option>
+              <option th:each="category : ${categories}" th:value="${category.id}"
+                      th:text="${category.name}"></option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('category')}"
+                  th:errors="*{category}"></span>
+          </div>
+          <div class="col-6 md-3">
+            <label class="form-label" for="img">Hình ảnh</label>
+            <input class="form-control" type="file" id="img" name="img">
+          </div>
+          <input type="submit" class="btn btn-primary" value="Thêm mới">
+        </form>
+        <a th:href="@{/books}" class="btn btn-primary">Quay lại</a>
+
+      </div>
+      <div th:insert="~{admin/fragment/script :: script}"></div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

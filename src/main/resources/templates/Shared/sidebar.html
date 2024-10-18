@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div th:fragment="sidebarFragment">
+    <div class="sidebar">
+        <div class="widget widget_collection d-none d-md-block">
+            <div class="widget-title">
+                Sách Noi Bat
+            </div>
+            <div class="widget_collection_list">
+                <div th:each="book : ${mostBorrowedBooks}" class="product-item-mini">
+                    <div class="product-img" style="border: none;">
+                        <a th:href="@{/detail/{id}(id=${book.id})}">
+                            <img class="lazy"
+                                 th:src="@{${book.imgUrl}}"
+                                 th:alt="${book.title}" />
+                        </a>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">
+                            <a th:href="@{/detail/{id}(id=${book.id})}"
+                               th:title="${book.title}">
+                                <span th:text="${book.title}"></span>
+                            </a>
+                        </h3>
+                        <div class="box-pro-prices">
+                            <p class="pro-price ">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget widget_banner banner-effect">
+            <a href="">
+                <img src="/img/widget_banner.jpg"
+                     alt="" />
+                <span class="hover hover1"></span>
+                <span class="hover hover2"></span>
+                <span class="hover hover3"></span>
+                <span class="hover hover4"></span>
+            </a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

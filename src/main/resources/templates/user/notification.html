@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <div th:insert="~{Shared/head :: headFragment}"></div>
+    <style>
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table-custom th, .table-custom td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table-custom th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .table-custom tr:hover {
+            background-color: #f2f2f2;
+        }
+        .table-custom td {
+            background-color: #fff;
+        }
+        .btn-secondary {
+            padding: 8px 16px;
+            border: none;
+            background-color: #6c757d;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-secondary:hover {
+            background-color: #495057;
+        }
+    </style>
+</head>
+<body>
+
+<div th:insert="~{Shared/header :: headerFragment}"></div>
+<div th:insert="~{Shared/search :: searchFragment}"></div>
+<div class="container">
+    <h1 th:text="${title}"></h1>
+    <table class="table-custom">
+        <thead>
+        <tr>
+            <th>Tên sách</th>
+            <th>Ngày mượn</th>
+            <th>Ngày phải trả</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="borrow : ${borrows}">
+            <td>
+                <ul>
+                    <li th:each="detail : ${borrow.details}">
+                        <span th:text="${detail.book.title}"></span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="detail : ${borrow.details}">
+                        <span th:text="${#dates.format(borrow.borrowDate, 'dd/MM/yyyy')}"></span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="detail : ${borrow.details}">
+                        <span th:text="${#dates.format(detail.returnDate, 'dd/MM/yyyy')}"></span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <form th:action="@{/user/borrowDetail/{id}(id=${borrow.id})}" method="get">
+                    <button class="btn btn-secondary" type="submit">Chi tiết</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>

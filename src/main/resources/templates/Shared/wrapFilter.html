@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+</head>
+<body>
+<div th:fragment="filterFragment">
+    <div class="wrap-filter">
+        <div class="box_sidebar">
+            <div class="block left-module">
+                <div class="filter_xs">
+                    <div class="layered">
+                        <div class="sidebar-block block_content">
+                            <!-- Filter Form -->
+                            <form th:action="@{/filter}" method="get">
+                                <!-- Filter by Author -->
+                                <div class="form-group">
+                                    <label for="author">Tác Giả:</label>
+                                    <select id="author" name="authorId" class="form-control">
+                                        <option value="">Tất cả tác giả</option>
+                                        <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+                                    </select>
+                                </div>
+
+                                <!-- Filter by Category -->
+                                <div class="form-group">
+                                    <label for="category">Thể Loại:</label>
+                                    <select id="category" name="categoryId" class="form-control">
+                                        <option value="">Tất cả thể loại</option>
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                    </select>
+                                </div>
+                                <!-- Filter by Bo -->
+                                <div class="form-group">
+                                    <label for="bo">Bộ:</label>
+                                    <select id="bo" name="boId" class="form-control">
+                                        <option value="">Tất cả các bộ</option>
+                                        <option th:each="bo : ${bos}" th:value="${bo.id}" th:text="${bo.name}"></option>
+                                    </select>
+                                </div>
+
+                                <!-- Filter by Page Number -->
+                                <div class="form-group">
+                                    <label>Số Trang:</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="minPage">Từ Trang:</label>
+                                            <select id="minPage" name="minPage" class="form-control">
+                                                <option value="">Chọn từ trang</option>
+                                                <option value="100">100</option>
+                                                <option value="200">200</option>
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                            </select>
+                                            <small class="form-text text-muted">Không được lớn hơn Đến Trang</small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="maxPage">Đến Trang:</label>
+                                            <select id="maxPage" name="maxPage" class="form-control">
+                                                <option value="">Chọn đến trang</option>
+                                                <option value="200">200</option>
+                                                <option value="400">400</option>
+                                                <option value="600">600</option>
+                                                <option value="800">800</option>
+                                                <option value="1000">1000</option>
+                                            </select>
+                                            <small class="form-text text-muted">Không được nhỏ hơn Từ Trang</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Lọc</button>
+                            </form>
+
+
+                            <!-- Display Products -->
+                            <div class="sidebar-block sidebar-product">
+                                <div class="sidebar-title">
+                                    <h3>Sản phẩm nổi bật</h3>
+                                </div>
+                                <div class="sidebar-content">
+                                    <div th:each="book : ${mostBorrowedBooks}" class="product-item-mini">
+                                        <div class="product-img" style="border: none;">
+                                            <a th:href="@{/detail/{bookId}(bookId=${book.id})}">
+                                                <img th:src="@{${book.imgUrl}}" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="product-title">
+                                                <a th:href="@{/detail/{bookId}(bookId=${book.id})}"
+                                                   th:title="${book.title}">
+                                                    <span th:text="${book.title}">Book Title</span>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-block box_image d-none d-md-block p-0">
+                                <div class="banner">
+                                    <a href="">
+                                        <img src="/img/collection_banner_img.jpg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

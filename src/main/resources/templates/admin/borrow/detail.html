@@ -1,0 +1,125 @@
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Book List</title>
+        <div th:insert="~{admin/fragment/head :: head}"></div>
+    </head>
+    <body id="page-top">
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+        </div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Topbar -->
+            <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+            <!-- End of Topbar -->
+
+            <!-- Main Content -->
+            <div id="content">
+                <h1>Chi tiết mượn sách</h1>
+                <th:block class="container">
+                    <h1 th:text="${title}"></h1>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Hình ảnh sách</th>
+                            <th>Tên sách</th>
+                            <th>Ngày phải trả</th>
+                            <th>Ngày trả thực tế</th>
+                            <th>Tiền phạt</th>
+                            <th>Lỗi phạt</th>
+                            <th>Trạng thái đóng phạt</th>
+                            <th>Tác vụ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="detail : ${borrow.details}">
+                            <td><img th:src="@{${detail.book.imgUrl}}" width="250px" height="300px"></td>
+                            <td th:text="${detail.book.title}"></td>
+                            <td th:text="${detail.returnDate != null ? #dates.format(detail.returnDate, 'dd-MM-yyyy') : 'N/A'}"></td>
+                            <td th:text="${detail.actualReturnDate != null ? #dates.format(detail.actualReturnDate, 'dd-MM-yyyy') : 'Chưa trả sách'}"></td>
+                            <td th:text="${detail.fineAmount != null ? detail.fineAmount : '-'}"></td>
+                            <td th:text="${detail.description != null ? detail.description : '-'}"></td>
+                            <td th:text="${detail.isFines != null ? (detail.isFines ? 'Đã đóng phạt' : 'Chưa đóng phạt') : '-'}"></td>
+                            <td th:if="${borrow.acceptDate != null && detail.actualReturnDate == null}">
+                                <div th:if="${currentDate.after(detail.returnDate) && detail.isFines != true}">
+                                    <div class="form-group">
+                                        <button type="button" id="openFines" class="btn btn-warning py-2 px-4 mt-3 animate__animated animate__fadeInUp">Xác nhận trả</button>
+                                        <a class="btn btn-warning py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                           th:href="@{/borrow/fine/{borrow_id_detail}(borrow_id_detail=${detail.id})}" th:method="post">Phiếu phạt</a>
+                                    </div>
+                                    <div id="finesModal" class="modal">
+                                        <div class="modal-content">
+                                            <span class="close">&times;</span>
+                                            <h2>Thông tin phạt</h2>
+                                            <form th:action="@{/brDetail/return/{id}(id=${detail.id})}" method="post">
+                                                <input type="hidden" id="modalDetailId" name="id" th:value="${detail.id}">
+                                                <div class="form-group">
+                                                    <label for="finesAmount">Số tiền:</label>
+                                                    <input type="text" class="form-control" id="finesAmount" th:value="${detail.fineAmount}" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="finesDescription">Mô tả:</label>
+                                                    <input type="text" class="form-control" id="finesDescription" th:value="${detail.description}" disabled>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Thanh toán</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display:flex;" th:unless="${currentDate.after(detail.returnDate)}">
+                                    <a class="btn btn-warning py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                       th:href="@{/brDetail/return/{id}(id=${detail.id})}" th:method="post">Xác nhận trả</a>
+    <!--                                <a class="btn btn-warning py-2 px-4 mt-3 animate__animated animate__fadeInUp"-->
+    <!--                                   th:href="@{/borrow/fine/{borrow_id_detail}(borrow_id_detail=${detail.id})}" th:method="post">Phiếu phạt</a>-->
+    <!--                                <form th:action="@{/borrow/fine/{borrow_id_detail}(borrow_id_detail=${detail.id})}">-->
+    <!--                                    <button class="btn btn-primary ml-2" type="submit">Phiếu phạt</button>-->
+    <!--                                </form>-->
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${borrow.acceptDate == null}">
+                        <a class="btn btn-warning py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                           th:href="@{/borrow/accept/{id}(id=${borrow.id})}">Xác nhận</a>
+                    </div>
+                </th:block>
+                <!-- End of Main Content -->
+            </div>
+            <!-- End of Content Wrapper -->
+
+            <!-- Footer -->
+            <div th:insert="~{admin/fragment/footer :: footer}"></div>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <div th:insert="~{admin/fragment/script :: script}"></div>
+
+        <script th:inline="javascript">
+            var modal = document.getElementById('finesModal');
+            var btn = document.getElementById('openFines');
+            var span = document.getElementsByClassName("close")[0];
+
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        </script>
+    </div>
+    </body>
+    </html>

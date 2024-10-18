@@ -1,0 +1,172 @@
+<!doctype html>
+<html amp class="no-js" lang="vi" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{Shared/head :: headFragment}"></div>
+<body id="hogwarts-theme" class="index" style="background: #f9f5ee">
+
+<div class="main-body">
+  <div th:insert="~{Shared/header :: headerFragment}"></div>
+  <div th:insert="~{Shared/search :: searchFragment}"></div>
+  <div class="container">
+    <div class="row flex-row-reverse">
+      <div class="col-12 col-lg-9">
+        <div id="home-slider" class="mb-30">
+          <div class="owl-carousel owl-theme owl-nav-style-3 dark" data-autoplayspeed="5000"
+               data-autoplay="true" data-lg-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1"
+               data-dot="true" data-nav="true">
+            <div class="item">
+              <div class="image">
+                <a href="">
+                  <img src="img/home_slider_image_1.jpg" alt="" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section class="home-two-banner home-section-mg">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="item banner-effect">
+                <a href="">
+                  <picture>
+                    <img loading="lazy" src="/img/banner_1m.jpg" alt="" />
+                  </picture>
+                  <span class="hover hover1"></span>
+                  <span class="hover hover2"></span>
+                  <span class="hover hover3"></span>
+                  <span class="hover hover4"></span>
+                </a>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="item banner-effect">
+                <a href="">
+                  <picture>
+                    <img loading="lazy" src="/img/banner_2.jpg" alt="tố thư" />
+                  </picture>
+                  <span class="hover hover1"></span>
+                  <span class="hover hover2"></span>
+                  <span class="hover hover3"></span>
+                  <span class="hover hover4"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="home-tab-product mb-30">
+          <div class="inner">
+            <div class="htp-tabs-wrapper">
+              <div class="htp-tablinks">
+                <button class="htp-tablink active" data-id="htp-tab-1">Sách Mới Nổi Bật</button>
+              </div>
+              <div class="htp-tabcontents section-box-bg">
+                <div class="htp-tabcontent active" data-id="htp-tab-1">
+                  <div class="row">
+                    <div class="col-6 col-md-4 col-lg-3" th:each="book:${books}">
+                      <div class="product-item">
+                        <div class="product-img" style="border: none;">
+                          <a th:href="@{/detail/{id}(id=${book.id})}">
+                            <img class="lazy" th:src="@{${book.imgUrl}}" alt="" width="250px" height="300" />
+                          </a>
+                          <div class="button-add d-none d-md-flex">
+                            <a th:href="@{/cart/add/{bookId}(bookId=${book.id})}"
+                               data-tooltip="Them gio sach"><i
+                                    class="fal fa-cart-plus"></i></a>
+                            <a th:href="@{/detail/{id}(id=${book.id})}"
+                               data-tooltip="Chi tiết"><i class="fal fa-eye"></i></a>
+                          </div>
+                        </div>
+                        <div class="product-detail">
+                          <h3 class="pro-name"><a th:href="@{/detail/{id}(id=${book.id})}"
+                                                  th:text="${book.title}"></a></h3>
+                          <p class="pro-price highlight">
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="home-two-banner home-section-mg">
+          <div class="row">
+            <div class="col-12  col-md-3 ">
+              <div class="item banner-effect">
+                <a href="">
+                  <picture>
+                    <img loading="lazy" src="/img/banner_3.jpg" alt="" />
+                  </picture>
+                  <span class="hover hover1"></span>
+                  <span class="hover hover2"></span>
+                  <span class="hover hover3"></span>
+                  <span class="hover hover4"></span>
+                </a>
+              </div>
+            </div>
+            <div class="col-12   col-md-9 ">
+              <div class="item banner-effect">
+                <a href="">
+                  <picture>
+                    <img loading="lazy" src="/img/banner_4.jpg" alt="" />
+                  </picture>
+                  <span class="hover hover1"></span>
+                  <span class="hover hover2"></span>
+                  <span class="hover hover3"></span>
+                  <span class="hover hover4"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div th:each="cate:${categories}">
+          <section class="home-featured-product mb-30">
+            <div class="section-heading">
+              <h2 class="section-title">
+                <span th:text="${cate.name}"></span>
+              </h2>
+            </div>
+            <div class="htp-tabcontents section-box-bg">
+              <div class="htp-tabcontent active" data-id="htp-tab-1">
+                <div class="row">
+                  <div class="col-6 col-md-4 col-lg-3" th:each="bookCate:${cate.books}">
+                    <div class="product-item">
+                      <div class="product-img" style="border: none;">
+                        <a th:href="@{/detail/{id}(id=${bookCate.id})}">
+                          <img class="lazy" th:src="@{${bookCate.imgUrl}}" alt="" width="250px" height="300" />
+                        </a>
+                        <div class="button-add d-none d-md-flex">
+                          <a th:href="@{/cart/add/{bookId}(bookId=${bookCate.id})}"
+                             data-tooltip="Them gio sach"><i
+                                  class="fal fa-cart-plus"></i></a>
+                          <a th:href="@{/detail/{id}(id=${bookCate.id})}"
+                             data-tooltip="Chi tiết"><i class="fal fa-eye"></i></a>
+                        </div>
+                      </div>
+                      <div class="product-detail">
+                        <h3 class="pro-name"><a th:href="@{/detail/{id}(id=${bookCate.id})}"
+                                                th:text="${bookCate.title}"></a></h3>
+                        <p class="pro-price highlight">
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3">
+        <div th:insert="~{Shared/sidebar :: sidebarFragment}"></div>
+      </div>
+    </div>
+  </div>
+  <div th:insert="~{Shared/footer :: footerFragment}"></div>
+  <div id="site-overlay" class="site-overlay"></div>
+</div>
+<div class="overlay-filter">
+</div>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>

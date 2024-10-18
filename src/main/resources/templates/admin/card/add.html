@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Card</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Include any custom stylesheets or scripts -->
+    <div th:insert="~{admin/fragment/head :: head}"></div>
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div th:insert="~{admin/fragment/sidebar :: sidebar}"></div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Topbar -->
+        <div th:insert="~{admin/fragment/topbar :: topbar}"></div>
+            <h2>Add New Card</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form th:action="@{/cards/save}" method="post">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="months">Number of Months:</label>
+                            <input type="number" class="form-control" id="months" name="months" required>
+                        </div>
+                        <!-- Error message display -->
+                        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a th:href="@{/cards}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        <div th:insert="~{admin/fragment/footer :: footer}"></div>
+        </div>
+    </div>
+<div th:insert="~{admin/fragment/script :: script}"></div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Header</title>
+</head>
+<body>
+<div th:fragment="headerFragment">
+    <div class="header-container">
+        <div class="topbar">
+            <div class="container">
+                <div class="topbar-wrap d-flex align-items-center justify-content-between">
+                    <div class="header-contact d-none d-lg-flex flex-grow-1">
+                        <div class="item d-flex align-items-center">
+                            <div class="icon">
+                                <i class="fal fa-phone-volume"></i>
+                            </div>
+                            <div class="info">
+                                <a href="tel:0772090156">0772090156</a>
+                            </div>
+                        </div>
+                        <div class="item d-flex align-items-center">
+                            <div class="icon">
+                                <i class="fal fa-envelope"></i>
+                            </div>
+                            <div class="info">
+                                <a href="mailto:thuan01206667600@gmail.com">thuan01206667600@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="item d-flex align-items-center">
+                            <div class="icon">
+                                <i class="fal fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info">
+                                <a href="/">Thư viện trường đại học Công nghệ Thành Phố Hồ Chí Minh</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-account ml-5">
+                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                            <span class="mr-3 text-uppercase font-weight-bold">
+                                <a href="/user/profile" th:text="${#authentication.name}"></a>
+                            </span>
+                            <a href="/notification" class="mr-3 btn px-0">
+                                <i class="fas fa-bell text-primary"></i>
+                            </a>
+                            <a class="mr-3 text-uppercase font-weight-bold" href="/logout">Đăng xuất</a>
+                        </th:block>
+                        <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <a class="mr-3 text-uppercase font-weight-bold" th:href="@{/login}">Đăng nhập</a>
+                            <a class="mr-3 text-uppercase font-weight-bold" th:href="@{/register}">Đăng ký</a>
+                        </th:block>
+                    </div>
+
+                    <div class="header-action_cart">
+                        <div class="header-action_text cursor-pointer" id="dropdownCartButton" data-toggle="dropdown"
+                             aria-haspopup="true" aria-expanded="false">
+                            <div class="header-action__link header-action-toggle" aria-label="Giỏ hàng"
+                                 title="Giỏ hàng">
+                                <span class="box-icon">
+                                    <i class="fal fa-shopping-cart"></i>
+                                    <span class="count-holder">
+                                        <span class="count">0</span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="header-action_dropdown dropdown-menu dropdown-menu-right"
+                             aria-labelledby="dropdownCartButton">
+                            <span class="box-triangle">
+                                <svg viewBox="0 0 20 9">
+                                    <path
+                                            d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z"
+                                            fill="#ffffff"></path>
+                                </svg>
+                            </span>
+                            <div class="header-dropdown_content">
+                                <div class="site-cart">
+                                    <div class="cart-view clearfix">
+                                        <div class="cart-view-scroll">
+                                            <table id="clone-item-cart" class="table-clone-cart">
+                                                <tr class="item_2 hidden">
+                                                    <td class="img"><a href="" title=""><img
+                                                            src="//theme.hstatic.net/200000845405/1001223012/14/1x1.jpg?v=143"
+                                                            alt="" /></a></td>
+                                                    <td>
+                                                        <p class="pro-title">
+                                                            <a class="pro-title-view" href="" title=""></a>
+                                                            <span class="variant"></span>
+                                                        </p>
+                                                        <div class="mini-cart_quantity">
+                                                            <div class="pro-quantity-view"><span
+                                                                    class="qty-value"></span></div>
+                                                            <div class="pro-price-view"></div>
+                                                        </div>
+                                                        <div class="remove_link remove-cart"></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table id="cart-view">
+
+                                                <tr class="item-cart_empty">
+                                                    <td>
+                                                        <div class="svgico-mini-cart">
+                                                            <i class="fal fa-shopping-cart"></i>
+                                                        </div>
+                                                        Hiện chưa có sản phẩm
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        <div class="line"></div>
+                                        <div class="cart-view-total">
+                                            <table class="table-total">
+                                                <tr>
+                                                    <td class="text-left">TỔNG TIỀN:</td>
+                                                    <td class="text-right" id="total-view-cart">0₫</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="/cart"
+                                                           class="linktocart btn btn-primary btn-sm text-uppercase">Xem
+                                                        giỏ hàng</a></td>
+                                                    <td><a href="/checkout"
+                                                           class="linktocheckout btn btn-primary btn-sm text-uppercase">Thanh
+                                                        toán</a></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

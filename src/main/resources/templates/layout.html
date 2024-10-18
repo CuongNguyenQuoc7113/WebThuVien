@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>My App</title>
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <div th:insert="~{Shared/head :: headFragment}"></div>
+</head>
+<body>
+<header th:fragment="header">
+    <div th:insert="~{Shared/header :: headerFragment}"></div>
+</header>
+
+<div th:fragment="search">
+    <div th:insert="~{Shared/search :: searchFragment}"></div>
+</div>
+<div th:fragment="sidebar">
+    <div th:insert="~{Shared/sidebar :: sidebarFragment}"></div>
+</div>
+<div th:insert="~{::${content}}">
+
+</div>
+
+<footer th:fragment="footer">
+    <div th:insert="~{Shared/footer :: footerFragment}"></div>
+</footer>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>

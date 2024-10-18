@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Borrow Books</title>
+    <!-- Add your CSS and JS links here -->
+</head>
+<body>
+<header>
+    <nav>
+        <div>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                <span class="mr-3 text-uppercase font-weight-bold" th:text="${#authentication.name}"></span>
+                <a class="mr-3 text-uppercase font-weight-bold" href="/logout">Đăng xuất</a>
+            </th:block>
+            <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="mr-3 text-uppercase font-weight-bold" href="/login">Đăng nhập</a>
+            </th:block>
+        </div>
+    </nav>
+</header>
+
+<div>
+    <h1>Borrow Books</h1>
+    <form action="/borrow" method="post" id="cartformpage">
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <input type="hidden" name="userName" th:value="${#authentication.name}" />
+        </th:block>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <table class="table-cart">
+                    <thead>
+                    <tr>
+                        <th class="image">&nbsp;</th>
+                        <th class="item">Tên sản phẩm</th>
+                        <th class="item">Giá</th>
+                        <th class="item">Số lượng</th>
+                        <th class="item">Thành tiền</th>
+                        <th class="remove">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="book:${cartItems}">
+                    <tr class="line-item-container" data-variant-id="1125206016">
+                        <td class="image">
+                            <div class="product_image">
+                                <a href="">
+                                    <img th:src="@{${book.imgUrl}}" />
+                                </a>
+                            </div>
+                        </td>
+                        <td class="item" width="420px">
+                            <h3><a href=""></a></h3>
+                        </td>
+                        <td class="item">
+                            <span class="price">133,200₫</span>
+                        </td>
+                        <td class="qty">
+                        </td>
+                        <td class="item">
+                            <p class="">
+                                <span class="line-item-total price"><span class="d-md-none">Thành tiền: </span>266,400₫</span>
+                            </p>
+                        </td>
+                        <td class="remove">
+                            <a href="" class="cart">
+                                <img src=""/></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button type="submit">Borrow</button>
+    </form>
+</div>
+</body>
+</html>

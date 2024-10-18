@@ -1,0 +1,73 @@
+<!doctype html>
+<html amp class="no-js" lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{Shared/head :: headFragment}"></div>
+<body id="hogwarts-theme" class="collection" style="background: #f9f5ee">
+<div class="nav-overlay" onclick="initNav('close')"></div>
+
+<div class="main-body   ">
+    <div th:insert="~{Shared/header :: headerFragment}"></div>
+    <div th:insert="~{Shared/search :: searchFragment}"></div>
+    <div id="collection" class="collection-page">
+        <div class="main-content ">
+            <div class="container">
+                <div id="collection-body" class="py-5">
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            <div th:insert="~{Shared/wrapFilter :: filterFragment}"></div>
+                        </div>
+                        <div class="col-lg-9 col-12">
+                            <div class="wrap-collection-title">
+                                <div class="heading-collection">
+                                    <div class="row">
+                                        <div class="col-12 col-md-8">
+                                            <th:block th:if="${cateName != null}">
+                                                <h1 class="title" th:text="${cateName}">
+                                                </h1>
+                                            </th:block>
+                                            <th:block th:if="${cateName == null}">
+                                            </th:block>
+                                            <div class="alert-no-filter"></div>
+                                        </div>
+                                        <div class="col-12 col-md-4 mb-sort">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" filter-here section-box-bg">
+                                <div class="row content-product-list product-list filter clearfix">
+                                    <div class="col-md-4 col-6" th:each="book:${books}">
+                                        <div class="product-item">
+                                            <div class="product-img " style="border: none;">
+                                                <a th:href="@{/detail/{id}(id=${book.id})}">
+                                                    <img th:src="@{${book.imgUrl}}"
+                                                         alt="" width="250px" height="300"/>
+                                                </a>
+                                                <div class="button-add d-none d-md-flex">
+                                                    <a th:href="@{/cart/add/{bookId}(bookId=${book.id})}"
+                                                       data-tooltip="Them gio sach"><i
+                                                            class="fal fa-cart-plus"></i>
+                                                    </a>
+                                                    <a th:href="@{/detail/{id}(id=${book.id})}"
+                                                       data-tooltip="Chi tiết"><i class="fal fa-eye"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="product-detail" style="text-align:center;">
+                                                <h3 class="pro-name"><a th:href="@{/detail/{id}(id=${book.id})}"
+                                                                        th:text="${book.title}"></a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{Shared/footer :: footerFragment}"></div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html amp class="no-js" lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{Shared/head :: headFragment}"></div>
+<body id="hogwarts-theme" class="collection" style="background: #f9f5ee">
+<div class="nav-overlay" onclick="initNav('close')"></div>
+
+<div class="main-body   ">
+    <div th:insert="~{Shared/header :: headerFragment}"></div>
+    <div th:insert="~{Shared/search :: searchFragment}"></div>
+    <div class="main-body    main-body-product ">
+        <div id="product" class="productDetail-page">
+
+            <div class="product-detail-wrapper py-5 bg-white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row product-detail-main mb-5">
+                                <div class="col-12 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6 product-content-img">
+                                            <div class="product-gallery">
+                                                <div class="product-image-detail box__product-gallery scroll">
+                                                    <div class="text-center">
+                                                        <img class="product-image-feature" th:src="@{${book.imgUrl}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6 product-content-desc" id="detail-product">
+                                            <div class="product-title">
+                                                <h1 th:text="${book.title}"></h1>
+                                            </div>
+                                            <p class="product-type" th:text="${book.author.name}">
+
+                                            </p>
+                                            <div class="selector-actions">
+                                                <div class="wrap-addcart">
+                                                    <a th:href="@{/cart/add/{bookId}(bookId=${book.id})}" class=" add-to-cartProduct btn btn-primary btn-addtocart addtocart-modal ">
+                                                        Thêm vào giỏ
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3 d-none d-md-block">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-9">
+                            <div class="product-description">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+                                           href="#nav-home" role="tab" aria-controls="nav-home"
+                                           aria-selected="true">GIỚI THIỆU SÁCH</a>
+
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                         aria-labelledby="nav-home-tab">
+                                    </div>
+                                    <pre style="font-family:Arial; 20px;" th:text="${book.description}">
+                                        </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="site-overlay" class="site-overlay"></div>
+    </div>
+    <div th:insert="~{Shared/footer :: footerFragment}"></div>
+</div>
+<div th:insert="~{Shared/script :: scriptFragment}"></div>
+</body>
+</html>
