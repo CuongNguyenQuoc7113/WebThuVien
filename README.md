@@ -43,7 +43,7 @@ This **Book  Website** is a full-stack web application designed to facilitate th
 
 ## Usage
 
-Once both the backend and frontend servers are running, the application can be accessed via the browser at http://localhost:3000. Below are some screenshots of the key features:
+Once both the backend and frontend servers are running, the application can be accessed via the browser at http://localhost:7056. Below are some screenshots of the key features:
 
 - **Home Page:**
 ![Home Page]![image](https://github.com/user-attachments/assets/ec2b12dd-f367-49f0-9dcb-a286317fdfdb)
