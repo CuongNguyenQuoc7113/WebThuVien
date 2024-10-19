@@ -46,54 +46,67 @@ This **Book  Website** is a full-stack web application designed to facilitate th
 Once both the backend and frontend servers are running, the application can be accessed via the browser at http://localhost:3000. Below are some screenshots of the key features:
 
 - **Home Page:**
-![Home Page](![1](https://github.com/user-attachments/assets/e7e7eb55-a3b4-4b3c-9446-e170c1fabb4f))
-
-
-
-- **Shoe Catelog:**
-![Shoe Catelog](![image](https://github.com/user-attachments/assets/f7f40335-4be7-4eb7-be07-6159e5b0085a))
-
-
-
-- **Shoe Filters:**
-![Shoe Filters](![image](https://github.com/user-attachments/assets/93147de4-6da0-40c8-859c-e75189bdc240))
-
-
-- **Search products by price:**
-![Search products by price](![image](https://github.com/user-attachments/assets/11979baa-9649-4f7c-b600-d5113af90c3f))
-
-
-
-- **Products in cart:**
-![Products in cart](![image](https://github.com/user-attachments/assets/286840e6-692c-44ec-b915-8cca32153ba6))
-
-
-
-- **Add, drop, and remove products in the cart:**
-![Add, drop, remove products in the cart](![image](https://github.com/user-attachments/assets/33e61482-80d1-4956-9a63-9f72bea97d3c))(![image](https://github.com/user-attachments/assets/d9ee9733-6c43-4ef2-bca6-277dd1636f9a))
+![Home Page]![image](https://github.com/user-attachments/assets/ec2b12dd-f367-49f0-9dcb-a286317fdfdb)
 
 
 
 
-- **Proceed to payment:**
-![Proceed to payment]![image](https://github.com/user-attachments/assets/b40fd319-c151-41ab-a7e4-414c7aa9f0d9)
+- **Featured Products:**
+![Featured Products]![image](https://github.com/user-attachments/assets/b5f0c057-0a24-45fb-880a-bc1cb8971e9a)
 
 
 
-- **Transfer order status:**
-![Transfer order status](![image](https://github.com/user-attachments/assets/60584be5-d6bb-4a7e-aa63-3795500ef714))
+
+- **Sign-in:**
+![Sign-in]![image](https://github.com/user-attachments/assets/a63fc742-21fc-44ed-a676-c9bce41a67fb)
 
 
 
-- **Order Details:**
-![Order Details](![image](https://github.com/user-attachments/assets/5a697d66-456f-495e-a3a5-f80c5f195926))
+- **Sign-up:**
+![Sign-up]![image](https://github.com/user-attachments/assets/7ad26887-2583-4eac-9331-944eda2dc495)
 
 
 
-- **Order Cancellation:**
-![Order Cancellation](![image](https://github.com/user-attachments/assets/e41c9222-2c69-4842-8530-28a45dfcfe2d))
+
+- **Add products to cart:**
+![Add products to cart]![image](https://github.com/user-attachments/assets/a6bff806-f4bb-49a7-b51c-7da432accdb9)
 
 
+
+
+- **Procced to checkout:**
+![Proceed to checkout]![image](https://github.com/user-attachments/assets/acf486e8-09a6-4b7f-a5e6-7ab1017fdddf)
+
+
+
+
+
+- **Products list in Admin:**
+![Products list in Admin]![image](https://github.com/user-attachments/assets/8f940ef5-7934-4506-93cd-f4f84e0523ce)
+
+
+
+
+- **Accept the orders by Admin:**
+![Accept the orders by Admin]![image](https://github.com/user-attachments/assets/1a4c985d-9b8d-4239-992e-09ffaf01f4aa)
+
+
+
+
+- **Search the products by User:**
+![Search the products by User]![image](https://github.com/user-attachments/assets/6e6161a6-6c19-465b-9208-478e18041e91)
+
+
+
+
+- **Assess and Reviews:**
+![Assess and Reviews]![image](https://github.com/user-attachments/assets/64141718-cc0b-41fa-970d-abb69807e141)
+
+
+
+
+- **Discount Code and Coupon:**
+![Discount Code and Coupon]![image](https://github.com/user-attachments/assets/e75d9ca6-7dfa-4f31-af8a-92f1a4fbd55a)
 
 ## Credits
 - **[Tran Hoai Nam]** - Team Leader/Fullstack
